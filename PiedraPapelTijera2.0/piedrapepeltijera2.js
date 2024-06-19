@@ -5,22 +5,27 @@ class PiedraPapelTijera {
     constructor() {
         this.victoriasJugador = 0;
         this.victoriasComputadora = 0;
+        this.opciones = ["piedra", "papel", "tijera"];
     }
 
-    elegirOpcion() {
-        const opciones = ["Piedra", "Papel", "Tijera"];
-        let eleccion = prompt("Elige una opción:");
-        while (!opciones.includes(eleccion)) {
-            eleccion = prompt("Opción inválida. Elige una opción:");
+    eleccionJugador() {
+        let eleccion = prompt("Elige una opción: Piedra, Papel o Tijera");
+        while (!this.opciones.includes(eleccion)) {
+          eleccion = prompt("Opción inválida. Elige una opción: Piedra, Papel o Tijera");
         }
         return eleccion;
+    }
+    
+    eleccionComputadora() {
+        const eleccionAleatoria = Math.floor(Math.random() * 3);
+        return this.opciones[eleccionAleatoria];
     }
   
     determinarGanador(eleccionJugador, eleccionComputadora) {
         const combinacionesGanadoras = {
-            Piedra: ["Tijera"],
-            Papel: ["Piedra"],
-            Tijera: ["Papel"],
+            Piedra: ["tijera"],
+            Papel: ["piedra"],
+            Tijera: ["papel"],
         };
   
         if (eleccionJugador === eleccionComputadora) return alert("Empate");
@@ -47,7 +52,7 @@ class PiedraPapelTijera {
     jugar() {
         console.log(this.mostrarResultado());
     }
-  }
+}
   
 class Historial {
     constructor(victorias, derrotas) {
@@ -60,4 +65,7 @@ class Historial {
         console.log(`Derrotas: ${this.derrotas}`);
     }
 }
+
+let juego = new PiedraPapelTijera();
+juego.eleccionJugador();
   
