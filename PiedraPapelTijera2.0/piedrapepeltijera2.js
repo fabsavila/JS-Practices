@@ -9,9 +9,9 @@ class PiedraPapelTijera {
     }
 
     eleccionJugador() {
-        let eleccion = prompt("Elige una opción: Piedra, Papel o Tijera");
+        let eleccion = prompt("Elige una opción: Piedra, Papel o Tijera").toLowerCase();
         while (!this.opciones.includes(eleccion)) {
-          eleccion = prompt("Opción inválida. Elige una opción: Piedra, Papel o Tijera");
+          eleccion = prompt("Opción inválida. Elige una opción: Piedra, Papel o Tijera").toLowerCase();
         }
         return eleccion;
     }
@@ -28,21 +28,26 @@ class PiedraPapelTijera {
             Tijera: ["papel"],
         };
   
-        if (eleccionJugador === eleccionComputadora) return alert("Empate");
-
-        if (combinacionesGanadoras[eleccionJugador].includes(eleccionMaquina)) {
+        if (eleccionJugador === eleccionComputadora) {
+            alert("Empate");
+            return "Empate";
+        }
+        
+        if (combinacionesGanadoras[eleccionJugador].includes(eleccionComputadora)) {
+            this.victoriasJugador++
             return "Ganaste";
         } else {
+            this.victoriasComputadora++
             return "Perdiste";
         }
     }
   
     mostrarResultado() {
-        const eleccionJugador = this.elegirOpcion();
-        const eleccionComputadora = this.eleccionOpcion();
+        const eleccionJugador = this.eleccionJugador();
+        const eleccionComputadora = this.eleccionComputadora();
         const resultado = this.determinarGanador(eleccionJugador, eleccionComputadora);
   
-        console.log(`La máquina eligió: ${eleccionMaquina}`);
+        console.log(`La computadora eligió: ${eleccionComputadora}`);
         console.log(`Resultado: ${resultado}`);
   
         const historialJugador = new Historial(this.victoriasJugador, this.victoriasComputadora);
@@ -50,7 +55,7 @@ class PiedraPapelTijera {
     }
   
     jugar() {
-        console.log(this.mostrarResultado());
+        this.mostrarResultado();
     }
 }
   
@@ -67,5 +72,5 @@ class Historial {
 }
 
 let juego = new PiedraPapelTijera();
-juego.eleccionJugador();
+juego.jugar();
   
